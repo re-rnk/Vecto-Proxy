@@ -1,0 +1,12 @@
+[debug] [2026-06-17T06:11:48.384Z] ----------------------------------------------------------------------
+[debug] [2026-06-17T06:11:48.386Z] Command:       /nix/store/b3x7xvp565xqlj0whi2giwgbrplfwfpb-nodejs-22.16.0/bin/node /home/user/.global_modules/bin/firebase login
+[debug] [2026-06-17T06:11:48.387Z] CLI Version:   15.20.0
+[debug] [2026-06-17T06:11:48.387Z] Platform:      linux
+[debug] [2026-06-17T06:11:48.387Z] Node Version:  v22.16.0
+[debug] [2026-06-17T06:11:48.388Z] Time:          Wed Jun 17 2026 06:11:48 GMT+0000 (Coordinated Universal Time)
+[debug] [2026-06-17T06:11:48.388Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2026-06-17T06:11:48.397Z] No OAuth tokens found
+[debug] [2026-06-17T06:11:48.398Z] No OAuth tokens found
+[error] Failed to fetch Firebase Project from current Studio Workspace: Unable to refresh auth: not yet authenticated.
+[info] i  The Firebase CLI’s MCP server feature can optionally make use of Gemini in Firebase. Learn more about Gemini in Firebase and how it uses your data: https://firebase.google.com/docs/gemini-in-firebase#how-gemini-in-firebase-uses-your-data 

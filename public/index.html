@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vecto Proxy</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: #f0f2f5; /* A calmer background color */
+        }
+        #controls {
+            display: flex;
+            padding: 10px;
+            background: #ffffff;
+            border-bottom: 1px solid #dcdfe3;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            z-index: 10;
+            align-items: center;
+            gap: 10px;
+        }
+        #inputWrapper {
+            flex-grow: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        #urlInput {
+            width: 100%;
+            padding: 10px 35px 10px 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 20px; /* Rounded corners */
+            outline: none; /* Remove default focus outline */
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        #urlInput:focus {
+            border-color: #4a90e2; /* Highlight color on focus */
+            box-shadow: 0 0 5px rgba(74, 144, 226, 0.5); /* Glow effect on focus */
+        }
+        #clearButton {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: #9aa0a6;
+            cursor: pointer;
+            display: none;
+            padding: 0;
+            line-height: 1;
+        }
+        #clearButton:hover {
+            color: #5f6368;
+        }
+        .iconButton {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #5f6368;
+            padding: 5px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+        .iconButton:hover {
+            background-color: #f1f3f4;
+        }
+        #goButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4a90e2; /* A nice blue */
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        #goButton:hover {
+            background-color: #357abd; /* Darker blue on hover */
+        }
+        #web-frame {
+            flex-grow: 1;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="controls">
+        <button id="reloadButton" class="iconButton" title="Reload">↻</button>
+        <div id="inputWrapper">
+            <input type="text" id="urlInput" placeholder="https:// or search query...">
+            <button id="clearButton" title="Clear">×</button>
+        </div>
+        <button id="goButton">Go</button>
+    </div>
+    <iframe id="web-frame" sandbox="allow-forms allow-scripts allow-same-origin allow-popups"></iframe>
+
+    <script>
+        const urlInput = document.getElementById('urlInput');
+        const goButton = document.getElementById('goButton');
+        const reloadButton = document.getElementById('reloadButton');
+        const clearButton = document.getElementById('clearButton');
+        const webFrame = document.getElementById('web-frame');
+
+        function loadUrl() {
+            let query = urlInput.value.trim();
+            if (!query) return;
+
+            let url;
+            // Check if it's a URL or a search query
+            if (query.includes('.') && !query.includes(' ')) {
+                url = !/^https?:\/\//i.test(query) ? 'https://' + query : query;
+            } else {
+                url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            }
+            
+            urlInput.value = url; // Show the full URL
+            webFrame.src = `/proxy?url=${encodeURIComponent(url)}`;
+            updateClearButtonVisibility();
+        }
+
+        function updateClearButtonVisibility() {
+            clearButton.style.display = urlInput.value.length > 0 ? 'block' : 'none';
+        }
+
+        urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                loadUrl();
+            }
+        });
+
+        urlInput.addEventListener('input', updateClearButtonVisibility);
+
+        goButton.addEventListener('click', loadUrl);
+
+        reloadButton.addEventListener('click', () => {
+            if (urlInput.value.trim() && webFrame.src) {
+                webFrame.src = webFrame.src;
+            }
+        });
+
+        clearButton.addEventListener('click', () => {
+            urlInput.value = '';
+            updateClearButtonVisibility();
+            urlInput.focus();
+        });
+    </script>
+</body>
+</html>
