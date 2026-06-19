@@ -1,34 +1,3 @@
-# Dependencies
-/node_modules
-
-# Production
-/build
-/dist
-/.next
-
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# Environment variables
+node_modules
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-*.sublime-workspace
-
-# OS-specific
-.DS_Store
-Thumbs.db
+firebase-debug.log
