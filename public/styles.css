@@ -1,1 +1,16 @@
-/** Add styles here */
+body {
+  background-color: #333; /* ダークグレー */
+  color: #fff; /* 基本のテキスト色を白に */
+  font-family: sans-serif;
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  color: #9370DB; /* ミディアムパープル */
+  text-align: center;
+}
